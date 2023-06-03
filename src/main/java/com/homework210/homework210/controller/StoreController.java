@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @Scope("session")
@@ -22,18 +21,12 @@ public class StoreController {
     }
     @GetMapping("/add")
     public Item add(
-            @RequestParam(value = "id1", required = false) Integer id1,
-            @RequestParam(value = "id2", required = false) Integer id2
-    ) {
+            @RequestParam("id1") HashSet<Integer> id1
+            ) {
+        Iterator itr = id1.iterator();
         String id = null;
-        if(id1 == null) {
-            id = id1.toString();
-        }
-        if(id2 == null) {
-            id = id2.toString();
-        }
-        if(id1 != null && id2 != null) {
-            id = id1.toString() + id2.toString();
+        while (itr.hasNext()) {
+            id=id + itr.next().toString();
         }
         return storeService.add(id);
     }
