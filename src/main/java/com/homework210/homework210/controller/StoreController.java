@@ -20,18 +20,13 @@ public class StoreController {
         this.storeService = storeService;
     }
     @GetMapping("/add")
-    public Item add(
-            @RequestParam("id1") HashSet<Integer> id1
+    public List<Integer> add(
+            @RequestParam("id") List<Integer> id
             ) {
-        Iterator itr = id1.iterator();
-        String id = null;
-        while (itr.hasNext()) {
-            id=id + itr.next().toString();
-        }
         return storeService.add(id);
     }
     @GetMapping("/get")
-    public Map<String, Item> get(
+    public Set<Integer> get(
     ) {
         return storeService.get();
     }

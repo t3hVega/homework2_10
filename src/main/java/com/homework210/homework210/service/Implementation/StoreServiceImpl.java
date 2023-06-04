@@ -6,22 +6,19 @@ import com.homework210.homework210.service.StoreService;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 @Service
 @Scope("session")
 public class StoreServiceImpl implements StoreService {
-    private final Map<String, Item> cart = new HashMap<>();
+    private final Set<Integer> cart = new HashSet<>();
     @Override
-    public Item add(String id) {
-        if (cart.containsKey(id)) {
-            throw new ItemAlreadyAddedException("Товар уже в корзине");
-        }
-        cart.put(id, new Item(id));
-        return cart.get(id);
+    public List<Integer> add(List<Integer> id) {
+        cart.addAll(id);
+        return id;
     }
     @Override
-    public Map<String, Item> get() {
-        return cart;
+    public Set<Integer> get() {
+        return new HashSet<>(cart);
     }
 }
